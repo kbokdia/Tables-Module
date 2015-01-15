@@ -26,16 +26,23 @@ class Table{
 		$this->executeQuery($sql);
 	}
 
-	public function getALL($order=null,$order_type=null){
+	public function getALL($specifics=null,$order=null,$order_type=null){
 		$sql;
-		if(is_null($order)){
+		if(is_null($specifics)){
 			$sql = "SELECT * FROM ".$this->name;
+		}elseif (!is_null($specifics)) {
+			$sql = "SELECT ".implode(",", $specifics)." FROM ".$this->name;
 		}
-		else{
+		
+		if (!is_null($order) && is_null($specifics)) {
 			$sql = "SELECT * FROM ".$this->name." ORDER BY ".$order." ".$order_type;
+		}elseif (!is_null($order) && !is_null($specifics)) {
+			$sql = "SELECT ".implode(",", $specifics)." FROM ".$this->name." ORDER BY ".$order." ".$order_type;
 		}
 		return $this->getArrayResult($sql);
 	}
+
+	
 
 	public function getALLValues($constraints,$type=null){		
 		$base = "SELECT * FROM ".$this->name;
