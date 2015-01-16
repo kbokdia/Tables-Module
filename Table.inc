@@ -10,6 +10,10 @@ class Table{
 		$this->mysqli = getConnection();
 	}
 
+	public function __destruct(){
+		$this->mysqli->close();
+	}
+
 	public function save($data,$constraints=null,$type=null){
 		if($constraints == null){
 			$sql = $this->buildInsertStr($data);
