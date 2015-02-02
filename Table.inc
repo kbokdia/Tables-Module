@@ -99,8 +99,8 @@ class Table{
 		$res = $this->mysqli->query($sql);
 
 		if (!$res) {
-		    echo 'Could not run query: ' . $this->mysqli->error;
-		    return new Exception("Query not proper");
+		    //echo 'Could not run query: ' . $this->mysqli->error;
+		    return false;
 		}elseif ($res->num_rows == 0) {
 			return null;
 		}
